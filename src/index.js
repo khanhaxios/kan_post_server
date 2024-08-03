@@ -6,7 +6,7 @@ import helmet from "helmet";
 import bodyParser from "body-parser";
 import compression from "compression";
 import {postRouter} from "./controllers/post.controller.js";
-import path from "path";
+import * as functions from 'firebase-functions';
 
 const mongoUri = "mongodb+srv://dangkdev:shJm5NEqONoHFaVO@cluster0.y40ogdo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const app = express();
@@ -39,3 +39,5 @@ mongoose.connect(mongoUri, {
     .catch(err => {
         console.error('Failed to connect to MongoDB', err);
     });
+
+// exports.api = functions.https.onRequest(app);

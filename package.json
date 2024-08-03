@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "type": "module",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "product":"node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "firebase deploy --only functions"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +22,7 @@
     "crypto": "^1.0.1",
     "express": "^4.19.2",
     "express-rate-limit": "^7.4.0",
+    "firebase-functions": "^5.0.1",
     "helmet": "^7.1.0",
     "mongoose": "^8.5.2",
     "morgan": "^1.10.0",
