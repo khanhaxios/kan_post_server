@@ -1,5 +1,6 @@
 import express from 'express';
 import {Post} from '../models/post.model.js'
+import mongoose from "mongoose";
 
 export const postRouter = express.Router();
 
@@ -29,6 +30,16 @@ postRouter.put('/react/:id', async (req, res) => {
             message: 'Post successfully updated', post:
                 await Post.reactPost(postId)
         });
+    } catch (e) {
+        console.log(e);
+    }
+})
+postRouter.post('/save-post', async (req, res) => {
+    try {
+        const postIds = req.body.ids;
+        const objectIds = postIds.map(id => new mongoose.Types.ObjectId(id))
+        const posts = await Post.find({_id: {$in: objectIds}});
+        res.status(200).json(posts);
     } catch (e) {
         console.log(e);
     }
