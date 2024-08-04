@@ -6,6 +6,7 @@ import helmet from "helmet";
 import bodyParser from "body-parser";
 import compression from "compression";
 import {postRouter} from "./controllers/post.controller.js";
+import keyRouter from "./controllers/key.controller.js";
 
 const mongoUri = "mongodb+srv://dangkdev:shJm5NEqONoHFaVO@cluster0.y40ogdo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const app = express();
@@ -16,6 +17,7 @@ app.use(helmet());
 app.use(compression());
 // reg router
 app.use('/posts', postRouter);
+app.use('/keys', keyRouter);
 // handle all error
 
 app.use((err, req, res, next) => {

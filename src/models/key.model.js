@@ -1,9 +1,9 @@
 import * as mongoose from "mongoose";
 import * as hasher from 'crypto'
-import {randomUUID} from "crypto";
+import {randomUUID, randomInt} from "crypto";
 
 function generateOtp(length = 6) {
-    const otp = crypto.randomInt(10 ** (length - 1), 10 ** length);
+    const otp = randomInt(10 ** (length - 1), 10 ** length);
     return otp.toString().padStart(length, '0');
 }
 
@@ -22,9 +22,12 @@ const keySchema = new mongoose.Schema({
         default: true
     }
 }, {timestamps: true})
-keySchema.generateNewKey = async function () {
+keySchema.statics.generateNewKey = async function () {
     const data = 'kan-dev' + randomUUID();
+
     const newHash = hasher.createHash('sha256').update(data).digest('hex')
+    console.log(data, newHash);
+
     const key = new this({
         code: generateOtp(),
         hash: newHash,
@@ -32,6 +35,9 @@ keySchema.generateNewKey = async function () {
     });
     await key.save();
     return key;
+}
+keySchema.statics.findByCode = async function (code) {
+    return await this.findOne({code: code});
 }
 keySchema.statics.findByHash = function (hash) {
     return this.findOne({hash: hash});
