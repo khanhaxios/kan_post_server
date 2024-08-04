@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 
-var LIMIT = 10;
+var LIMIT = 20;
 const postSchema = new mongoose.Schema({
     title: {
         type: String,
