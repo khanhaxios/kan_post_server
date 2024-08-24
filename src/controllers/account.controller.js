@@ -41,4 +41,9 @@ accountRouter.post('/login', async (req, res) => {
         res.status(404).json({message: "User not found!"});
     }
 });
+accountRouter.put('/update-ticket/:id', async (req, res) => {
+    const [tickets] = [req.body.tickets];
+    const account = await Account.findOneAndUpdate({_id: req.params.id, tickets: tickets}, {new: true})
+    return res.status(200).json({message: "update ticket successfully", data: account});
+})
 export default accountRouter;
