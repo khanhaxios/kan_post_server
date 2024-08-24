@@ -24,10 +24,7 @@ const keySchema = new mongoose.Schema({
 }, {timestamps: true})
 keySchema.statics.generateNewKey = async function () {
     const data = 'kan-dev' + randomUUID();
-
     const newHash = hasher.createHash('sha256').update(data).digest('hex')
-    console.log(data, newHash);
-
     const key = new this({
         code: generateOtp(),
         hash: newHash,
